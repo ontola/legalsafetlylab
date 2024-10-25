@@ -1,0 +1,80 @@
+---
+/**
+ * A wrapper component that enables alt+click editing functionality for Atomic Data resources.
+ * When holding Alt, the wrapped content will show an outline and clicking will redirect to the edit page.
+ *
+ * @component
+ * @example
+ * ```astro
+ * <ResourceClickWrapper subject="https://example.com/resource">
+ *   <SomeContent />
+ * </ResourceClickWrapper>
+ * ```
+ */
+
+type Props = {
+  subject: string;
+};
+
+const { subject } = Astro.props;
+const editLink = `https://atomicdata.dev/app/edit?subject=${subject}`;
+---
+
+<div class='block-container' data-edit-link={editLink}>
+  <slot />
+</div>
+
+<script>
+  class ResourceClickHandler {
+    private elements: NodeListOf<HTMLElement>;
+
+    constructor() {
+      this.elements =
+        document.querySelectorAll<HTMLElement>('.block-container');
+      this.init();
+    }
+
+    private toggleAltClass = (show: boolean) => {
+      this.elements.forEach(el => el.classList.toggle('alt-active', show));
+    };
+
+    private handleKeyEvent = (e: KeyboardEvent) => {
+      this.toggleAltClass(e.altKey);
+    };
+
+    private handleClick = (e: MouseEvent) => {
+      const target = e.currentTarget as HTMLElement;
+      if (e.altKey) {
+        const editLink = target.dataset.editLink;
+        if (editLink) {
+          window.location.href = editLink;
+        }
+      }
+    };
+
+    private init() {
+      document.addEventListener('keydown', this.handleKeyEvent);
+      document.addEventListener('keyup', this.handleKeyEvent);
+      window.addEventListener('blur', () => this.toggleAltClass(false));
+      window.addEventListener('focus', () => this.toggleAltClass(false));
+
+      this.elements.forEach(el => {
+        el.addEventListener('click', this.handleClick);
+      });
+    }
+  }
+
+  // Initialize the handler when the script loads
+  new ResourceClickHandler();
+</script>
+
+<style>
+  .block-container.alt-active {
+    outline: 2px dashed #666;
+    cursor: pointer;
+  }
+  .block-container.alt-active:hover {
+    outline-color: blue;
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+</style>

@@ -1,27 +1,28 @@
 ---
-import type { Resource } from '@tomic/lib';
 import { website } from '../../ontologies/website';
 import TextBlock from './TextBlock.astro';
 import { getStore } from '../../atomic/getStore';
 import HeroBlock from './HeroBlock.astro';
 import TeamBlock from './TeamBlock.astro';
 import FounderMessageBlock from './FounderMessageBlock.astro';
+import ResourceClickWrapper from '../../components/ResourceClickHandler.astro';
 
 type Props = {
   subject: string;
 };
 
 const { subject } = Astro.props;
-
 const store = getStore();
 const resource = await store.getResource(subject);
 ---
 
-{resource.hasClasses(website.classes.textBlock) && <TextBlock {resource} />}
-{resource.hasClasses(website.classes.heroBlock) && <HeroBlock {resource} />}
-{resource.hasClasses(website.classes.teamBlock) && <TeamBlock {resource} />}
-{
-  resource.hasClasses(website.classes.founderMessageBlock) && (
-    <FounderMessageBlock {resource} />
-  )
-}
+<ResourceClickWrapper subject={subject}>
+  {resource.hasClasses(website.classes.textBlock) && <TextBlock {resource} />}
+  {resource.hasClasses(website.classes.heroBlock) && <HeroBlock {resource} />}
+  {resource.hasClasses(website.classes.teamBlock) && <TeamBlock {resource} />}
+  {
+    resource.hasClasses(website.classes.founderMessageBlock) && (
+      <FounderMessageBlock {resource} />
+    )
+  }
+</ResourceClickWrapper>
