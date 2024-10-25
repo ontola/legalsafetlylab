@@ -43,12 +43,12 @@ const editLink = `https://atomicdata.dev/app/edit?subject=${subject}`;
     };
 
     private handleClick = (e: MouseEvent) => {
-      // Prevent opening default link
-      e.preventDefault();
-      // Prevent bubbling up to parent ResourcelickHandler
-      e.stopPropagation();
-      const target = e.currentTarget as HTMLElement;
       if (e.altKey) {
+        // Prevent opening default link
+        e.preventDefault();
+        // Prevent bubbling up to parent ResourcelickHandler
+        e.stopPropagation();
+        const target = e.currentTarget as HTMLElement;
         const editLink = target.dataset.editLink;
         if (editLink) {
           window.location.href = editLink;
