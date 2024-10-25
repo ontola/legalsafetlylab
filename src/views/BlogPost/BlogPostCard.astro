@@ -2,6 +2,7 @@
 import type { Server } from '@tomic/lib';
 import { getStore } from '../../atomic/getStore';
 import type { Blogpost } from '../../ontologies/website';
+import ResourceClickHandler from '../../components/ResourceClickHandler.astro';
 
 type Props = {
   subject: string;
@@ -22,16 +23,18 @@ const formatter = new Intl.DateTimeFormat('default', {
 const date = formatter.format(new Date(resource.props.publishedAt));
 ---
 
-<a class='card' href={resource.props.href}>
-  <div class='image-wrapper'>
-    <img src={image.props.downloadUrl} alt='' />
-  </div>
-  <div class='card-content'>
-    <div class='publish-date'>{date}</div>
-    <h2>{resource.title}</h2>
-    <p>{resource.props.description.slice(0, 300)}...</p>
-  </div>
-</a>
+<ResourceClickHandler subject={subject}>
+  <a class='card' href={resource.props.href}>
+    <div class='image-wrapper'>
+      <img src={image.props.downloadUrl} alt='' />
+    </div>
+    <div class='card-content'>
+      <div class='publish-date'>{date}</div>
+      <h2>{resource.title}</h2>
+      <p>{resource.props.description.slice(0, 300)}...</p>
+    </div>
+  </a>
+</ResourceClickHandler>
 
 <style>
   .card {

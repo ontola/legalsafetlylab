@@ -7,6 +7,7 @@ import HStack from '../components/Layout/HStack.astro';
 import VStack from '../components/Layout/VStack.astro';
 import type { Footer } from '../ontologies/website';
 import SocialLink from './SocialLink.astro';
+import ResourceClickHandler from '../components/ResourceClickHandler.astro';
 
 type Props = {
   subject: string;
@@ -19,38 +20,40 @@ const footerResource = await store.getResource<Footer>(subject);
 const contactInfo = marked.parse(footerResource.props.contactInfo);
 ---
 
-<footer>
-  <Container>
-    <VStack>
-      <HStack justify='space-between' wrap>
-        <VStack gap='0.5rem'>
-          <h2>Contact Info:</h2>
-          <div set:html={contactInfo} />
-        </VStack>
-        <VStack gap='0.5rem'>
-          <h2>Socials:</h2>
-          <ul>
-            {
-              (footerResource.props.socials ?? []).map(socialLink => (
-                <li>
-                  <SocialLink subject={socialLink} />
-                </li>
-              ))
-            }
-          </ul>
-        </VStack>
-        <VStack gap='0.5rem'>
-          <h2>Newsletter:</h2>
-          <form>
-            <Input type='email' placeholder='Email' name='email' />
-            <button class='email-submit' type='submit'>Subscribe</button>
-          </form>
-        </VStack>
-      </HStack>
-      <p>Copyright {new Date().getFullYear()}</p>
-    </VStack>
-  </Container>
-</footer>
+<ResourceClickHandler subject={subject}>
+  <footer>
+    <Container>
+      <VStack>
+        <HStack justify='space-between' wrap>
+          <VStack gap='0.5rem'>
+            <h2>Contact Info:</h2>
+            <div set:html={contactInfo} />
+          </VStack>
+          <VStack gap='0.5rem'>
+            <h2>Socials:</h2>
+            <ul>
+              {
+                (footerResource.props.socials ?? []).map(socialLink => (
+                  <li>
+                    <SocialLink subject={socialLink} />
+                  </li>
+                ))
+              }
+            </ul>
+          </VStack>
+          <VStack gap='0.5rem'>
+            <h2>Newsletter:</h2>
+            <form>
+              <Input type='email' placeholder='Email' name='email' />
+              <button class='email-submit' type='submit'>Subscribe</button>
+            </form>
+          </VStack>
+        </HStack>
+        <p>Copyright {new Date().getFullYear()}</p>
+      </VStack>
+    </Container>
+  </footer>
+</ResourceClickHandler>
 
 <style>
   footer {

@@ -4,6 +4,7 @@ import type { Page } from '../../ontologies/website';
 import BlockView from '../Block/BlockView.astro';
 import Container from '../../components/Layout/Container.astro';
 import VStack from '../../components/Layout/VStack.astro';
+import ResourceClickHandler from '../../components/ResourceClickHandler.astro';
 
 type Props = {
   resource: Resource<Page>;
@@ -13,11 +14,17 @@ const { resource } = Astro.props;
 ---
 
 <Container>
-  <h2>{resource.title}</h2>
+  <ResourceClickHandler subject={resource.subject}>
+    <h2>{resource.title}</h2>
 
-  <VStack>
-    {(resource.props.blocks ?? []).map(block => <BlockView subject={block} />)}
-  </VStack>
+    <VStack>
+      {
+        (resource.props.blocks ?? []).map(block => (
+          <BlockView subject={block} />
+        ))
+      }
+    </VStack>
+  </ResourceClickHandler>
 </Container>
 
 <style></style>

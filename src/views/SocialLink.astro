@@ -1,5 +1,6 @@
 ---
 import { getStore } from '../atomic/getStore';
+import ResourceClickHandler from '../components/ResourceClickHandler.astro';
 import type { SocialLink } from '../ontologies/website';
 
 type Props = {
@@ -11,6 +12,8 @@ const store = getStore();
 const socialLinkResource = await store.getResource<SocialLink>(subject);
 ---
 
-<a href={socialLinkResource.props.externalLink}>
-  {socialLinkResource.props.name}
-</a>
+<ResourceClickHandler subject={subject}>
+  <a href={socialLinkResource.props.externalLink}>
+    {socialLinkResource.props.name}
+  </a>
+</ResourceClickHandler>

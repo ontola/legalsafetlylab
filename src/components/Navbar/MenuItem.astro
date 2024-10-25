@@ -1,6 +1,7 @@
 ---
 import { getStore } from '../../atomic/getStore';
 import type { MenuItem, Page } from '../../ontologies/website';
+import ResourceClickHandler from '../ResourceClickHandler.astro';
 
 type Props = {
   subject: string;
@@ -21,9 +22,11 @@ if (menuItem.props.linksTo) {
 }
 ---
 
-<a href={href}>
-  {href === '/' ? <h1>Legal Safety Lab</h1> : menuItem.title}
-</a>
+<ResourceClickHandler subject={subject}>
+  <a href={href}>
+    {href === '/' ? <h1>Legal Safety Lab</h1> : menuItem.title}
+  </a>
+</ResourceClickHandler>
 
 <style>
   a {
