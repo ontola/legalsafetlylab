@@ -4,6 +4,7 @@ import PageFullPage from './PageFullPage.astro';
 import { website } from '../../ontologies/website';
 import BlogIndexFullPage from './BlogIndexFullPage.astro';
 import BlogPostFullPage from './BlogPostFullPage.astro';
+import ResourceClickHandler from '../../components/ResourceClickHandler.astro';
 
 type Props = {
   resource: Resource;
@@ -12,14 +13,16 @@ type Props = {
 const { resource } = Astro.props;
 ---
 
-{resource.hasClasses(website.classes.page) && <PageFullPage {resource} />}
-{
-  resource.hasClasses(website.classes.blogIndexPage) && (
-    <BlogIndexFullPage {resource} />
-  )
-}
-{
-  resource.hasClasses(website.classes.blogpost) && (
-    <BlogPostFullPage {resource} />
-  )
-}
+<ResourceClickHandler subject={resource.subject}>
+  {resource.hasClasses(website.classes.page) && <PageFullPage {resource} />}
+  {
+    resource.hasClasses(website.classes.blogIndexPage) && (
+      <BlogIndexFullPage {resource} />
+    )
+  }
+  {
+    resource.hasClasses(website.classes.blogpost) && (
+      <BlogPostFullPage {resource} />
+    )
+  }
+</ResourceClickHandler>
