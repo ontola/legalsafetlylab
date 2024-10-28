@@ -1,39 +1,32 @@
 ---
-import { CollectionBuilder } from '@tomic/lib';
+import { CollectionBuilder, Resource } from '@tomic/lib';
 import { website } from '../../ontologies/website';
 import { getStore } from '../../atomic/getStore';
 import MainLayout from '../../layouts/MainLayout.astro';
 import FullPageView from '../../views/FullPage/FullPageView.astro';
 
-export async function getStaticPaths() {
-  const store = getStore();
-  const paths = [];
+const { path } = Astro.params;
 
-  const collection = new CollectionBuilder(store)
-    .setProperty(website.properties.href)
-    .build();
-
-  for await (const subject of collection) {
-    const resource = await store.getResource(subject);
-
-    paths.push({
-      params: { path: resource.get(website.properties.href) },
-      props: { subject: subject },
-    });
-  }
-
-  return paths;
+// For some reason, favicon.ico requests end up here, so we redirect to the svg version
+if (path === 'favicon.ico') {
+  return Astro.redirect('/favicon.svg');
 }
 
-type Props = {
-  subject: string;
-};
-
-const { subject } = Astro.props;
-
 const store = getStore();
+const collection = new CollectionBuilder(store)
+  .setProperty(website.properties.href)
+  .setValue('/' + path!)
+  .build();
 
-const resource = await store.getResource(subject);
+let resource: Resource;
+
+const subject = (await collection.getAllMembers())[0];
+
+if (!subject) {
+  return Astro.redirect('/404');
+}
+
+resource = await store.getResource(subject);
 ---
 
 <MainLayout resource={resource}>
