@@ -16,11 +16,9 @@ const { class: className, ...rest } = Astro.props;
   div {
     width: min(var(--t-max-container-size), 100%);
     margin: 0 auto;
-    padding-inline: var(--inner-container-padding, var(--t-spacing-3));
   }
 
   .inner {
-    --inner-container-padding: 0px;
     display: contents;
   }
 </style>
