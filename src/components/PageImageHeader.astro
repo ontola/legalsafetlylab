@@ -15,11 +15,11 @@ const { src } = Astro.props;
 
   @keyframes parallax {
     from {
-      background-position-y: 50%;
+      background-position-y: 55%;
       opacity: 1;
     }
     to {
-      background-position-y: 100%;
+      background-position-y: 45%;
       opacity: 0;
     }
   }
@@ -29,7 +29,7 @@ const { src } = Astro.props;
     opacity: 1;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position-y: 50%;
+    background-position-y: 55%;
     object-fit: cover;
     background-image: var(--bgUrl);
     animation: parallax 1s linear forwards;
