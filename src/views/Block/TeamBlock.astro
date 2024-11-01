@@ -41,6 +41,13 @@ const { resource } = Astro.props;
     border: 2px solid var(--t-colors-border-light);
     padding: var(--t-spacing-4);
     border-radius: var(--t-border-radius);
+
+    @media (max-width: 550px) {
+      border: none;
+      margin-inline: -1rem;
+      border-radius: 0;
+      padding-inline: 0;
+    }
   }
   h3 {
     text-align: center;
