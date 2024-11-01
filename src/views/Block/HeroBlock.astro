@@ -4,6 +4,7 @@ import type { HeroBlock } from '../../ontologies/website';
 import shield from '../../assets/shield.svg';
 import Container from '../../components/Layout/Container.astro';
 import { marked } from 'marked';
+import VStack from '../../components/Layout/VStack.astro';
 
 type Props = {
   resource: Resource<HeroBlock>;
@@ -15,12 +16,14 @@ const content = marked.parse(resource.props.description);
 ---
 
 <div class='hero'>
-  <Container class='relative-container'>
-    <h2>
-      {resource.title}
-    </h2>
-    <div set:html={content} />
-    <img src={shield.src} alt='' />
+  <Container>
+    <VStack class='relative-container'>
+      <h2>
+        {resource.title}
+      </h2>
+      <div set:html={content} />
+      <img src={shield.src} alt='' />
+    </VStack>
   </Container>
 </div>
 
