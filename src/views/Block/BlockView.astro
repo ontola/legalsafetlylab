@@ -6,6 +6,7 @@ import HeroBlock from './HeroBlock.astro';
 import TeamBlock from './TeamBlock.astro';
 import FounderMessageBlock from './FounderMessageBlock.astro';
 import ResourceClickWrapper from '../../components/ResourceClickHandler.astro';
+import CardSectionBlock from './CardSectionBlock.astro';
 
 type Props = {
   subject: string;
@@ -23,6 +24,11 @@ const resource = await store.getResource(subject);
   {
     resource.hasClasses(website.classes.founderMessageBlock) && (
       <FounderMessageBlock {resource} />
+    )
+  }
+  {
+    resource.hasClasses(website.classes.cardSectionBlock) && (
+      <CardSectionBlock {resource} />
     )
   }
 </ResourceClickWrapper>

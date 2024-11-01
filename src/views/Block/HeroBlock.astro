@@ -27,7 +27,6 @@ const content = marked.parse(resource.props.description);
 <style>
   .hero {
     background-image: var(--t-background-callout-1-gradient);
-    padding: var(--t-spacing-3);
     padding-block: var(--t-spacing-6);
   }
 
@@ -38,7 +37,6 @@ const content = marked.parse(resource.props.description);
 
   h2 {
     font-size: clamp(1.5rem, 7vw, 4rem);
-    margin: 0;
   }
 
   p {
@@ -59,10 +57,14 @@ const content = marked.parse(resource.props.description);
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 30cqw;
+    width: 25cqw;
     height: auto;
     opacity: 0.05;
     animation: fade-in 800ms ease-in-out;
     pointer-events: none;
+
+    @media (max-width: 900px) {
+      width: 30cqw;
+    }
   }
 </style>

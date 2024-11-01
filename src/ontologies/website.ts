@@ -11,6 +11,10 @@ export const website = {
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/class/blog-index-page',
     blogpost:
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/class/blogpost',
+    cardSection:
+      'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/class/card-section',
+    cardSectionBlock:
+      'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/class/card-section-block',
     easstTeamMember:
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/class/easst-team-member',
     footer:
@@ -40,6 +44,8 @@ export const website = {
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/property/blocks',
     boardOfDirectors:
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/property/board-of-directors',
+    cardSections:
+      'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/property/card-sections',
     columnLayout:
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/property/column-layout',
     contactInfo:
@@ -74,6 +80,8 @@ export const website = {
 
 export type BlogIndexPage = typeof website.classes.blogIndexPage;
 export type Blogpost = typeof website.classes.blogpost;
+export type CardSection = typeof website.classes.cardSection;
+export type CardSectionBlock = typeof website.classes.cardSectionBlock;
 export type EasstTeamMember = typeof website.classes.easstTeamMember;
 export type Footer = typeof website.classes.footer;
 export type FounderMessageBlock = typeof website.classes.founderMessageBlock;
@@ -106,6 +114,18 @@ declare module '@tomic/lib' {
         | typeof website.properties.coverImage
         | typeof website.properties.publishedAt;
       recommends: never;
+    };
+    [website.classes.cardSection]: {
+      requires:
+        | BaseProps
+        | 'https://atomicdata.dev/properties/name'
+        | 'https://atomicdata.dev/properties/description'
+        | 'https://atomicdata.dev/ontology/data-browser/property/image';
+      recommends: never;
+    };
+    [website.classes.cardSectionBlock]: {
+      requires: BaseProps | typeof website.properties.cardSections;
+      recommends: 'https://atomicdata.dev/properties/name';
     };
     [website.classes.easstTeamMember]: {
       requires:
@@ -164,7 +184,9 @@ declare module '@tomic/lib' {
         | 'https://atomicdata.dev/properties/name'
         | 'https://atomicdata.dev/properties/description'
         | typeof website.properties.href;
-      recommends: typeof website.properties.blocks;
+      recommends:
+        | typeof website.properties.blocks
+        | 'https://atomicdata.dev/ontology/data-browser/property/image';
     };
     [website.classes.socialLink]: {
       requires:
@@ -198,6 +220,7 @@ declare module '@tomic/lib' {
   interface PropTypeMapping {
     [website.properties.blocks]: string[];
     [website.properties.boardOfDirectors]: string[];
+    [website.properties.cardSections]: string[];
     [website.properties.columnLayout]: boolean;
     [website.properties.contactInfo]: string;
     [website.properties.coverImage]: string;
@@ -218,6 +241,7 @@ declare module '@tomic/lib' {
   interface PropSubjectToNameMapping {
     [website.properties.blocks]: 'blocks';
     [website.properties.boardOfDirectors]: 'boardOfDirectors';
+    [website.properties.cardSections]: 'cardSections';
     [website.properties.columnLayout]: 'columnLayout';
     [website.properties.contactInfo]: 'contactInfo';
     [website.properties.coverImage]: 'coverImage';

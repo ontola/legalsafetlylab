@@ -1,30 +1,40 @@
 ---
-import type { Resource } from '@tomic/lib';
+import type { Resource, Server } from '@tomic/lib';
 import type { Page } from '../../ontologies/website';
 import BlockView from '../Block/BlockView.astro';
 import Container from '../../components/Layout/Container.astro';
 import VStack from '../../components/Layout/VStack.astro';
 import ResourceClickHandler from '../../components/ResourceClickHandler.astro';
+import { getStore } from '../../atomic/getStore';
+import PageImageHeader from '../../components/PageImageHeader.astro';
 
 type Props = {
   resource: Resource<Page>;
 };
 
 const { resource } = Astro.props;
+const store = getStore();
+
+let image: Resource<Server.File> | undefined;
+
+  if (resource.props.image) {
+  image = await store.getResource<Server.File>(resource.props.image);
+}
 ---
 
-<Container>
-  <ResourceClickHandler subject={resource.subject}>
+<ResourceClickHandler subject={resource.subject}>
+  {image && <PageImageHeader src={image.props.downloadUrl} />}
+  <Container>
     <h2>{resource.title}</h2>
+  </Container>
 
-    <VStack>
-      {
-        (resource.props.blocks ?? []).map(block => (
-          <BlockView subject={block} />
-        ))
-      }
-    </VStack>
-  </ResourceClickHandler>
-</Container>
+  <VStack>
+    {(resource.props.blocks ?? []).map(block => <BlockView subject={block} />)}
+  </VStack>
+</ResourceClickHandler>
 
-<style></style>
+<style>
+  h2 {
+    margin-top: 2rem;
+  }
+</style>

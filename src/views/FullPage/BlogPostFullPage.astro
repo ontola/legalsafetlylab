@@ -4,6 +4,7 @@ import type { Blogpost } from '../../ontologies/website';
 import Container from '../../components/Layout/Container.astro';
 import { getStore } from '../../atomic/getStore';
 import { marked } from 'marked';
+import PageImageHeader from '../../components/PageImageHeader.astro';
 
 type Props = {
   resource: Resource<Blogpost>;
@@ -25,7 +26,7 @@ const content = marked.parse(resource.props.description);
 ---
 
 <article>
-  <div class='image'></div>
+  <PageImageHeader src={image.props.downloadUrl} />
   <Container>
     <div class='blog-wrapper'>
       <h2>{resource.title}</h2>
@@ -35,42 +36,14 @@ const content = marked.parse(resource.props.description);
   </Container>
 </article>
 
-<style define:vars={{ bgUrl: `url(${image.props.downloadUrl})` }}>
-  @keyframes fade-out {
-    to {
-      opacity: 0;
-    }
-  }
-
-  @keyframes parallax {
-    from {
-      background-position-y: 50%;
-      opacity: 1;
-    }
-    to {
-      background-position-y: 0%;
-      opacity: 0;
-    }
-  }
-  .image {
-    --start: 10% width: 100%;
-    height: 25rem;
-    opacity: 1;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position-y: 50%;
-    object-fit: cover;
-    background-image: var(--bgUrl);
-    animation: parallax 1s linear forwards;
-    animation-timeline: view(0% 95%);
-  }
-
+<style>
   .blog-wrapper {
     padding-block: 1rem;
     max-width: 70ch;
 
     h2 {
       font-size: 2rem;
+      margin-top: 2rem;
     }
   }
 </style>

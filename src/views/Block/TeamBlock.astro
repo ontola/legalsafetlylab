@@ -3,6 +3,7 @@ import type { Resource } from '@tomic/lib';
 import type { TeamBlock } from '../../ontologies/website';
 import EASSTTeamMember from '../EASSTTeamMember.astro';
 import VStack from '../../components/Layout/VStack.astro';
+import Container from '../../components/Layout/Container.astro';
 type Props = {
   resource: Resource<TeamBlock>;
 };
@@ -10,38 +11,34 @@ type Props = {
 const { resource } = Astro.props;
 ---
 
-<div class='team-block'>
-  <h3>{resource.title}</h3>
-  <VStack gap='2rem'>
-    <VStack>
-      <h4>Board of Directors</h4>
-      {
-        resource.props.boardOfDirectors.map(member => (
-          <EASSTTeamMember subject={member} />
-        ))
-      }
+<Container>
+  <div class='team-block'>
+    <VStack gap='2rem'>
+      <h3>{resource.title}</h3>
+      <VStack>
+        <h4>Board of Directors</h4>
+        {
+          resource.props.boardOfDirectors.map(member => (
+            <EASSTTeamMember subject={member} />
+          ))
+        }
+      </VStack>
+      <VStack>
+        <h4>Supervisory Board</h4>
+        {
+          resource.props.supervisoryBoard.map(member => (
+            <EASSTTeamMember subject={member} />
+          ))
+        }
+      </VStack>
     </VStack>
-    <VStack>
-      <h4>Supervisory Board</h4>
-      {
-        resource.props.supervisoryBoard.map(member => (
-          <EASSTTeamMember subject={member} />
-        ))
-      }
-    </VStack>
-  </VStack>
-</div>
+  </div>
+</Container>
 
 <style>
   .team-block {
     background-color: var(--t-background-white);
-    box-shadow:
-      0px 1.4px 2.2px rgba(0, 0, 0, 0.014),
-      0px 3.3px 5.3px rgba(0, 0, 0, 0.02),
-      0px 6.1px 10px rgba(0, 0, 0, 0.025),
-      0px 10.9px 17.9px rgba(0, 0, 0, 0.03),
-      0px 20.5px 33.4px rgba(0, 0, 0, 0.036),
-      0px 49px 80px rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--t-colors-border-light);
     padding: var(--t-spacing-4);
     border-radius: var(--t-border-radius);
   }

@@ -1,0 +1,38 @@
+---
+type Props = {
+  src: string;
+};
+const { src } = Astro.props;
+---
+
+<div class='image'></div>
+<style define:vars={{ bgUrl: `url(${src})` }}>
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes parallax {
+    from {
+      background-position-y: 50%;
+      opacity: 1;
+    }
+    to {
+      background-position-y: 100%;
+      opacity: 0;
+    }
+  }
+  .image {
+    --start: 10% width: 100%;
+    height: 25rem;
+    opacity: 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 50%;
+    object-fit: cover;
+    background-image: var(--bgUrl);
+    animation: parallax 1s linear forwards;
+    animation-timeline: view(5% 95%);
+  }
+</style>

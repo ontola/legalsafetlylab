@@ -21,10 +21,10 @@ const content = marked.parse(resource.props.description);
   <Container>
     <VStack>
       <h2>{resource.title}</h2>
-      <div>
+      <HStack class='responsive-hstack'>
         <img src={image.props.downloadUrl} alt='An image of the founder' />
         <div set:html={content} />
-      </div>
+      </HStack>
     </VStack>
   </Container>
 </div>
@@ -34,7 +34,6 @@ const content = marked.parse(resource.props.description);
     background-color: var(--t-colors-dark);
     color: var(--t-colors-text-inverted);
     padding-block: var(--t-spacing-6);
-    padding-inline: var(--t-spacing-3);
     p {
       max-width: 75ch;
       text-align: justify;
@@ -52,8 +51,16 @@ const content = marked.parse(resource.props.description);
   img {
     width: clamp(8rem, 30vw, 13rem);
     height: clamp(8rem, 30vw, 13rem);
-    margin-inline-end: 1rem;
     float: left;
+    margin-inline-end: 1rem;
     border-radius: var(--t-border-radius);
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .responsive-hstack {
+    @media (max-width: 600px) {
+      display: block !important;
+    }
   }
 </style>

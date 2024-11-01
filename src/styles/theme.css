@@ -8,6 +8,7 @@
   --t-colors-text-light: color(display-p3 0.379 0.392 0.421);
   --t-colors-text-inverted: white;
   --t-colors-border: color(display-p3 0.727 0.733 0.773);
+  --t-colors-border-light: lab(95 0 -0.01);
   --t-border-radius: 10px;
 
   --t-background-nav: rgb(45, 45, 45);
@@ -23,7 +24,7 @@
   --t-spacing-5: 2rem;
   --t-spacing-6: 4rem;
 
-  --t-max-container-size: 1000px;
+  --t-max-container-size: 1090px;
 }
 
 body {
@@ -36,6 +37,10 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--t-font-family-heading);
   text-wrap: balance;
+}
+
+:is(h1, h2, h3, h4, h5, h6, p):first-child {
+  margin-top: 0;
 }
 
 a {

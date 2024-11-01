@@ -1,0 +1,29 @@
+---
+import type { Resource } from '@tomic/lib';
+import type { CardSectionBlock } from '../../ontologies/website';
+import Container from '../../components/Layout/Container.astro';
+import CardSection from '../CardSection.astro';
+import VStack from '../../components/Layout/VStack.astro';
+import Grid from '../../components/Layout/Grid.astro';
+
+type Props = {
+  resource: Resource<CardSectionBlock>;
+};
+
+const { resource } = Astro.props;
+---
+
+<Container class='block-padding'>
+  <VStack>
+    <h2>{resource.title}</h2>
+    <Grid minItemWidth='32ch'>
+      {resource.props.cardSections.map(subject => <CardSection {subject} />)}
+    </Grid>
+  </VStack>
+</Container>
+
+<style>
+  .block-padding {
+    padding-block: var(--t-spacing-5);
+  }
+</style>

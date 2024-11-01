@@ -24,7 +24,6 @@ const content = marked.parse(resource.props.description);
 <style>
   .text-block {
     padding-block: var(--t-spacing-5);
-    padding-inline: var(--t-spacing-3);
     > h2:first-child,
     > h3:first-child {
       margin-top: 0px;
@@ -35,7 +34,7 @@ const content = marked.parse(resource.props.description);
   }
 
   .column-layout {
-    column-width: 35ch;
+    column-width: calc(var(--t-max-container-size) / 2 - 2rem);
     column-gap: 2rem;
     p {
       text-align: justify;
@@ -43,5 +42,9 @@ const content = marked.parse(resource.props.description);
         text-align: left;
       }
     }
+  }
+
+  .padding-container {
+    padding-inline: var(--t-spacing-3);
   }
 </style>

@@ -1,0 +1,50 @@
+---
+import { marked } from 'marked';
+import { getStore } from '../atomic/getStore';
+import { type Server } from '@tomic/lib';
+import HStack from '../components/Layout/HStack.astro';
+
+type Props = {
+  subject: string;
+};
+
+const { subject } = Astro.props;
+const store = getStore();
+const resource = await store.getResource(subject);
+const content = marked.parse(resource.props.description);
+const image = await store.getResource<Server.File>(resource.props.image);
+---
+
+<div class='card'>
+  <HStack align='center'>
+    <img class='icon' src={image.props.downloadUrl} alt='' />
+    <h3>{resource.title}</h3>
+  </HStack>
+  <div set:html={content} class='content' />
+</div>
+
+<style>
+  h3 {
+    margin-top: 0;
+    margin-bottom: -7px;
+  }
+  .card {
+    background-color: var(--t-background-white);
+    border-radius: var(--t-border-radius);
+    padding: var(--t-spacing-4);
+    border: 2px solid var(--t-colors-border-light);
+    display: flex;
+    flex-direction: column;
+    gap: var(--t-spacing-3);
+  }
+
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .content {
+    max-width: 60ch;
+    text-align: justify;
+  }
+</style>
