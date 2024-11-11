@@ -1,4 +1,5 @@
 ---
+import { CACHE_MAX_AGE } from 'astro:env/server';
 import { CollectionBuilder, Resource } from '@tomic/lib';
 import { website } from '../../ontologies/website';
 import { getStore } from '../../atomic/getStore';
@@ -6,6 +7,11 @@ import MainLayout from '../../layouts/MainLayout.astro';
 import FullPageView from '../../views/FullPage/FullPageView.astro';
 
 const { path } = Astro.params;
+
+Astro.response.headers.set(
+  'Netlify-CDN-Cache-Control',
+  `public, max-age=${CACHE_MAX_AGE}, must-revalidate`,
+);
 
 // For some reason, favicon.ico requests end up here, so we redirect to the svg version
 if (path === 'favicon.ico') {

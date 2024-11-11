@@ -1,15 +1,22 @@
 ---
 import { ATOMIC_WEBSITE_SUBJECT } from 'astro:env/client';
+import { CACHE_MAX_AGE } from 'astro:env/server';
 import MainLayout from '../layouts/MainLayout.astro';
 import { getStore } from '../atomic/getStore';
 import type { Homepage, Website } from '../ontologies/website';
 import VStack from '../components/Layout/VStack.astro';
 import BlockView from '../views/Block/BlockView.astro';
 
+Astro.response.headers.set(
+  'Netlify-CDN-Cache-Control',
+  `public, max-age=${CACHE_MAX_AGE}, must-revalidate`,
+);
+
 const store = getStore();
 const siteResource = await store.getResource<Website>(ATOMIC_WEBSITE_SUBJECT);
 
 const homepage = await store.getResource<Homepage>(siteResource.props.homepage);
+
 ---
 
 <MainLayout resource={homepage}>

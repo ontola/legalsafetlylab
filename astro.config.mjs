@@ -12,6 +12,12 @@ export default defineConfig({
   experimental: {
     env: {
       schema: {
+        CACHE_MAX_AGE: envField.number({
+          context: 'server',
+          access: 'public',
+          optional: true,
+          default: 86400, // 1 day
+        }),
         ATOMIC_SERVER_URL: envField.string({
           context: 'client',
           access: 'public',
