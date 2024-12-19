@@ -17,7 +17,7 @@ const content = marked.parse(resource.props.description);
   <div
     set:html={content}
     class='text-block'
-    class:list={{ ['column-layout']: resource.props.columnLayout }}
+    class:list={{ 'column-layout': resource.props.columnLayout }}
   />
 </Container>
 
@@ -41,6 +41,10 @@ const content = marked.parse(resource.props.description);
       @media (max-width: 713px) {
         text-align: left;
       }
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) + p {
+      break-before: avoid;
     }
   }
 
