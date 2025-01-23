@@ -42,7 +42,7 @@ export const website = {
   properties: {
     blocks:
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/property/blocks',
-    boardOfDirectors:
+    teamMembers:
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/property/board-of-directors',
     cardSections:
       'https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj/website/property/card-sections',
@@ -199,9 +199,9 @@ declare module '@tomic/lib' {
       requires:
         | BaseProps
         | 'https://atomicdata.dev/properties/name'
-        | typeof website.properties.boardOfDirectors
-        | typeof website.properties.supervisoryBoard;
-      recommends: never;
+        | typeof website.properties.teamMembers
+        | 'https://atomicdata.dev/01jj97ckx8azpprtjfk9k6jehr';
+      recommends: typeof website.properties.supervisoryBoard;
     };
     [website.classes.textBlock]: {
       requires: BaseProps | 'https://atomicdata.dev/properties/description';
@@ -219,7 +219,7 @@ declare module '@tomic/lib' {
 
   interface PropTypeMapping {
     [website.properties.blocks]: string[];
-    [website.properties.boardOfDirectors]: string[];
+    [website.properties.teamMembers]: string[];
     [website.properties.cardSections]: string[];
     [website.properties.columnLayout]: boolean;
     [website.properties.contactInfo]: string;
@@ -240,7 +240,7 @@ declare module '@tomic/lib' {
 
   interface PropSubjectToNameMapping {
     [website.properties.blocks]: 'blocks';
-    [website.properties.boardOfDirectors]: 'boardOfDirectors';
+    [website.properties.teamMembers]: 'teamMembers';
     [website.properties.cardSections]: 'cardSections';
     [website.properties.columnLayout]: 'columnLayout';
     [website.properties.contactInfo]: 'contactInfo';

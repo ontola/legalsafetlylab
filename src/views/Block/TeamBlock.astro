@@ -15,22 +15,26 @@ const { resource } = Astro.props;
   <div class='team-block'>
     <VStack gap='2rem'>
       <h3>{resource.title}</h3>
-      {resource.props.boardOfDirectors?.length && (
-        <VStack>
-          <h4>Board of Directors</h4>
-          {resource.props.boardOfDirectors.map(member => (
-            <EASSTTeamMember subject={member} />
-          ))}
-        </VStack>
-      )}
-      {resource.props.supervisoryBoard?.length && (
-        <VStack>
-          <h4>Supervisory Board</h4>
-          {resource.props.supervisoryBoard.map(member => (
-            <EASSTTeamMember subject={member} />
-          ))}
-        </VStack>
-      )}
+      {
+        resource.props.teamMembers?.length && (
+          <VStack>
+            <h4>Board Members</h4>
+            {resource.props.teamMembers.map(member => (
+              <EASSTTeamMember subject={member} />
+            ))}
+          </VStack>
+        )
+      }
+      {
+        resource.props.affiliates?.length && (
+          <VStack>
+            <h4>Affiliates</h4>
+            {resource.props.teamMembers.map(member => (
+              <EASSTTeamMember subject={member} />
+            ))}
+          </VStack>
+        )
+      }
     </VStack>
   </div>
 </Container>
