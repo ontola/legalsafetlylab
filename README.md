@@ -5,6 +5,8 @@
 
 ## Editing content
 
+- Hold the `alt` / `option` key and click a component to open the edit form
+- OR
 - Visit https://atomicdata.dev/01j9kkhn5h8h4rjmyk9hq0cwmj
 - Sign in with your provided secret (or ask joep@ontola.io for a new one)
 - Edits are published directly to the website
